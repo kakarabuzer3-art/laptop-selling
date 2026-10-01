@@ -2,22 +2,40 @@
 
 /* ------------------------------------------------------------------ *
  * Design tokens — single source of truth (see docs/00-architecture-blueprint.md §1)
+ *
+ * Accent: Signal Lime #C6EF34. The brief asked to drop the industrial orange
+ * for this lime, so the palette was re-derived rather than swapped one hex:
+ *
+ * - Lime is high-luminance (L*≈88), so it is a *surface* colour, never a text
+ *   colour on light. It only ever carries `signal-ink` at 14.11:1.
+ * - The neutrals are therefore shifted off pure grey toward a green-tinted
+ *   family. Grey beside lime reads as a dead, competing neutral; a green-grey
+ *   lets the accent read as part of one system (simultaneous contrast).
+ * - Surfaces keep a faint green cast, which is also what keeps the thermal
+ *   button field and the lime accent from clashing.
+ * - Every pair below is asserted by `npm run check:contrast` (WCAG 2.1).
  * ------------------------------------------------------------------ */
 @theme {
-  --color-ink-950: #08090a;
-  --color-ink-900: #0e1012;
-  --color-ink-800: #16191c;
-  --color-ink-700: #1f2428;
-  --color-line: #2a3034;
-  --color-fog-500: #6e767e;
-  --color-fog-400: #8b9299;
-  --color-fog-300: #9aa1a8;
-  --color-fog-200: #c9ced3;
-  --color-fog-50: #eef0f2;
-  --color-paper: #f4f3f0;
-  --color-signal: #ff4d1c;
-  --color-signal-strong: #ff6a41;
-  --color-signal-ink: #160400;
+  /* Surfaces — near-black with a green cast, not neutral black. */
+  --color-ink-950: #06090a;
+  --color-ink-900: #0b0f10;
+  --color-ink-800: #121718;
+  --color-ink-700: #1b2122;
+  --color-line: #262e30;
+
+  /* Text — green-tinted neutrals (hues ~120°) to sit beside the lime. */
+  --color-fog-500: #5f6b60;
+  --color-fog-400: #7d8a7e;
+  --color-fog-300: #9aa89c;
+  --color-fog-200: #c2cec4;
+  --color-fog-50: #eef3ec;
+  --color-paper: #f2f6f0;
+
+  /* Signal — the accent. Dark ink is the only legible pairing on lime. */
+  --color-signal: #c6ef34;
+  --color-signal-strong: #d7fb55;
+  --color-signal-ink: #0d1405;
+
   --color-cobalt: #3d5afe;
   --color-acid: #d8ff3e;
 
@@ -148,8 +166,9 @@
     --thermal-blend: normal;
   }
 
-  /* Over the signal CTA the field must `screen`, or the dark ink label and the
-     orange fill fight each other and the control loses its identity. */
+  /* Over the signal CTA the field must `screen`: the lime fill is already the
+     brightest surface on the page, and the dark label would vanish if the heat
+     composited normally. */
   .btn-thermal[data-variant="signal"] {
     --thermal-blend: screen;
   }
@@ -177,17 +196,17 @@
   }
 
   .btn-thermal.is-active .btn-thermal__label {
-    text-shadow: 0 0 14px rgb(255 190 120 / 0.55);
+    text-shadow: 0 0 14px rgb(198 239 52 / 0.45);
   }
 
-  /* The signal CTA is already bright; a white-hot glow would wash it out, so
-     it gets a tight orange bloom instead. */
+  /* The signal CTA is already near the top of the luminance range; a white-hot
+     glow would blow it out, so it gets a tight lime bloom instead. */
   .btn-thermal[data-variant="signal"].is-active {
-    box-shadow: 0 0 26px -6px rgb(255 77 28 / 0.55);
+    box-shadow: 0 0 26px -6px rgb(198 239 52 / 0.5);
   }
 
   .btn-thermal[data-variant="signal"].is-active .btn-thermal__label {
-    text-shadow: 0 0 12px rgb(255 220 190 / 0.45);
+    text-shadow: 0 0 12px rgb(20 32 4 / 0.35);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -476,7 +495,7 @@ html[data-scrolled="true"] .site-header {
   position: absolute;
   inset: -7px;
   border-radius: inherit;
-  border: 1px solid rgb(255 77 28 / 0.55);
+  border: 1px solid rgb(198 239 52 / 0.55);
   animation: hotspot-ping 2.8s var(--ease-in-out-quint) infinite;
 }
 
@@ -584,14 +603,14 @@ html[data-js] .reveal[data-shown="false"] .bar__fill {
 }
 
 .matrix__hl {
-  background: rgb(255 77 28 / 0.06);
-  box-shadow: inset 1px 0 0 rgb(255 77 28 / 0.35), inset -1px 0 0 rgb(255 77 28 / 0.35);
+  background: rgb(198 239 52 / 0.07);
+  box-shadow: inset 1px 0 0 rgb(198 239 52 / 0.35), inset -1px 0 0 rgb(198 239 52 / 0.35);
 }
 
 thead .matrix__hl {
   box-shadow:
-    inset 1px 0 0 rgb(255 77 28 / 0.35),
-    inset -1px 0 0 rgb(255 77 28 / 0.35),
+    inset 1px 0 0 rgb(198 239 52 / 0.35),
+    inset -1px 0 0 rgb(198 239 52 / 0.35),
     inset 0 2px 0 var(--color-signal);
 }
 

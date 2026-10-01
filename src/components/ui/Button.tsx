@@ -116,8 +116,8 @@ export function Button({
 
   const aria = rest["aria-label"] ? { "aria-label": rest["aria-label"] } : {};
   const isInternal = !!href && href.startsWith("/") && !href.startsWith("//");
-  // Drives the canvas blend mode: heat must `screen` over the signal CTA so the
-  // orange survives, but composite normally over dark/transparent variants.
+  // Drives the canvas blend mode: the heat must `screen` over the lime CTA so
+  // the fill survives, but composite normally over dark/transparent variants.
   const dataVariant = { "data-variant": variant };
 
   return (

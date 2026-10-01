@@ -89,11 +89,12 @@ animation JS on the critical path.
 | Touch | No hover exists, so `pointerdown` blooms the field and retires it on a 1.4 s timer. Keyboard users get the same via `focus`/`blur`. |
 | Reduced motion | `prefers-reduced-motion: reduce` skips the field entirely; the CSS hides the canvas and the scale. The control degrades to a plain button. |
 | Memory | `ResizeObserver` is disconnected and listeners removed on unmount; the reference leaked the observer. |
-| Label contrast | The reference put `mix-blend-mode: screen` on the *text*, which destroys contrast for a dark label on the orange CTA. Here the canvas composites behind the label, which keeps its own colour, with only a warm `text-shadow` when active. |
+| Label contrast | The reference put `mix-blend-mode: screen` on the *text*, which destroys contrast for a dark label on a bright CTA fill. Here the canvas composites behind the label, which keeps its own colour, with only a warm `text-shadow` when active. |
 
 **Compositing.** `data-variant` on the control selects the blend mode: the
-signal CTA uses `screen` so hot areas bloom toward yellow/white while the orange
-identity survives; dark and transparent variants composite normally.
+signal CTA uses `screen` so hot areas bloom while the fill identity survives;
+dark and transparent variants composite normally. (Since ADR 0004 the signal is
+lime, and this blend is now load-bearing rather than cosmetic.)
 
 **Focus visibility.** The chamfer `clip-path` would clip an outline drawn on the
 control, so the focus ring is painted on the control's unclipped wrapper via

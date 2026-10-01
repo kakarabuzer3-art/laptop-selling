@@ -19,7 +19,7 @@
 | D2 | Scope: single landing page vs full multi-page site | Landing page first (P0), product + configurator next (P1) |
 | D3 | Motion engine: GSAP+ScrollTrigger vs Motion (Framer) | **GSAP 3.15 + ScrollTrigger + SplitText** (free now) for scrub/pin choreography; Motion only if you prefer React-declarative |
 | D4 | Content source: typed TS modules vs MDX vs headless CMS | Typed TS + Zod now, CMS adapter later (same interfaces) |
-| D5 | Accent colour | Signal Orange `#FF4D1C` (industrial EU cue) |
+| D5 | Accent colour | ~~Signal Orange `#FF4D1C`~~ → **Signal Lime `#C6EF34`** (revised — see ADR 0004) |
 | D6 | Type pairing | Clash Display + General Sans + Martian Mono (Fontshare, free) |
 | D7 | Commerce: real checkout or simulated | Simulated CTA + stock/price logic now; Stripe later |
 
@@ -63,18 +63,31 @@ spec           .8125rem  mono  font-variant-numeric: tabular-nums
 ```
 Rule: **never more than 3 sizes on screen in one viewport** (cognitive load control).
 
-### 1.3 Colour tokens (proposed)
+### 1.3 Colour tokens
+
+> **Revised.** The accent was originally Signal Orange `#FF4D1C`. It is now
+> **Signal Lime `#C6EF34`**, supplied by the client. The neutrals were
+> re-derived rather than left grey — see ADR 0004 for the reasoning and the
+> measured contrast figures.
 
 ```
---ink-950 #08090A   page bg (dark)      --paper     #F4F3F0  page bg (light)
---ink-900 #0E1012   raised surface      --paper-2   #EAE8E3  raised surface
---ink-800 #16191C   panel               --fog-500   #6E767E  muted text
---ink-700 #1F2428   hover panel         --fog-200   #C9CED3  body text (dark)
---line    #2A3034   hairline            --ink-100   #12151A  body text (light)
---signal  #FF4D1C   CTA / active ONLY   --signal-ink #12000   text on signal
---acid    #D8FF3E   "in stock" / energy --cobalt    #3D5AFE   links, info, focus
+--ink-950 #06090A   page bg (dark)      --paper     #F2F6F0  page bg (light)
+--ink-900 #0B0F10   raised surface      --fog-500   #5F6B60  muted text
+--ink-800 #121718   panel               --fog-400   #7D8A7E  captions (AA)
+--ink-700 #1B2122   hover panel         --fog-200   #C2CEC4  body text (dark)
+--line    #262E30   hairline            --fog-50    #EEF3EC  headings
+--signal  #C6EF34   CTA / active ONLY   --signal-ink #0D1405  text on signal
+--signal-strong #D7FB55   hover fill    --cobalt    #3D5AFE   links, info, focus
+--acid    #D8FF3E   reserved / energy
 ```
-Contrast audit required at AA (4.5:1 body / 3:1 large) — `--signal` on `--ink-950` = 5.2:1 ✅.
+Contrast is asserted, not assumed: `npm run check:contrast` validates all 15
+foreground/background pairs at AA (4.5:1 body, 3:1 large). Key figures —
+`--signal-ink` on `--signal` = 14.11:1; `--fog-200` on `--ink-950` = 12.29:1.
+
+**Lime is a surface colour, never a text colour on light.** It is high
+luminance, so it only ever carries dark ink. Light-on-lime measures 1.18:1 and
+fails AA at every size.
+
 
 ### 1.4 Motion tokens
 
@@ -505,6 +518,6 @@ Each phase ends in a runnable, deployable state — you can review the hero afte
 1. **Brand & assets** — proceed with fictional *NORDVÄRK* + AI-generated/studio-style product imagery, or do you have a real brand, photos, and copy?
 2. **Scope for the first build** — landing page only (P0), or landing + product + configurator?
 3. **Motion engine** — GSAP + ScrollTrigger + Lenis (my recommendation) or Motion (Framer)?
-4. **Accent & type** — Signal Orange `#FF4D1C` + Clash Display/General Sans, or a different direction (cobalt / acid / warm-neutral)?
+4. **Accent & type** — *(historical)* Signal Orange `#FF4D1C` + Clash Display/General Sans. **Resolved: the accent was later revised to Signal Lime `#C6EF34`** (ADR 0004); type pairing unchanged.
 
 Answer those and I'll start on **Phase 0 + Phase 1** (tokens, motion kit, header, and the hero) so you have something real to look at immediately.

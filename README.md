@@ -24,8 +24,9 @@ npm run dev     # http://localhost:3000
 | `npm run lint` | ESLint (flat config) |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run test` | Vitest (SSR + content unit tests) |
-| `npm run verify` | lint → typecheck → test → build → link check |
+| `npm run verify` | lint → typecheck → test → build → link check → contrast check |
 | `npm run check:links` | Validates every internal link in the built HTML |
+| `npm run check:contrast` | Asserts the palette meets WCAG AA (15 pairs) |
 | `npm run images:optimize` | Regenerate WebP/AVIF from `src/media/source` |
 
 ## Project layout
@@ -70,6 +71,11 @@ public/media/     Optimised images served to the browser
   support, and full keyboard operability.
 - **Link integrity.** `npm run check:links` walks the built HTML and fails the
   build if any internal href, asset, or `#anchor` does not resolve.
+- **Signal Lime accent (`#C6EF34`).** The neutral ramp is green-tinted rather
+  than grey so the accent reads as one system instead of a neon bolt-on, and
+  lime carries dark ink only (light-on-lime is 1.18:1 and fails AA). The palette
+  is asserted by `npm run check:contrast`. See
+  [`docs/adr/0004-signal-lime-accent.md`](docs/adr/0004-signal-lime-accent.md).
 
 ## Content
 

@@ -23,7 +23,10 @@ export function Hero() {
       {/* ambient background layer — decorative only */}
       <div className="hero__bg absolute inset-0 -z-10" aria-hidden="true">
         <div className="grid-lines absolute inset-0" />
-        <div className="absolute top-[16%] left-1/2 h-[55vh] w-[90vw] max-w-[70rem] -translate-x-1/2 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(255,77,28,0.10),transparent_70%)]" />
+        {/* Accent bloom tinted to the lime signal. Kept low-alpha: at full
+            strength a lime radial behind near-white type raises the local
+            luminance and erodes the heading's contrast. */}
+        <div className="absolute top-[16%] left-1/2 h-[55vh] w-[90vw] max-w-[70rem] -translate-x-1/2 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(198,239,52,0.09),transparent_70%)]" />
       </div>
 
       <div className="container-x relative grid min-h-[calc(100svh-7rem)] grid-cols-1 items-center gap-12 py-16 lg:grid-cols-12 lg:gap-8 lg:py-10">

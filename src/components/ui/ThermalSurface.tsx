@@ -8,9 +8,11 @@ import { useEffect, useRef } from "react";
  * Ported from the "Hover Buttons — Part 5" reference implementation
  * (`.btn-heat` markup + the `HeatButton` class), adapted to this codebase:
  *
- * - The infrared ramp (black → purple → red → orange → yellow → white) is kept
- *   verbatim; it peaks at white, so it reads correctly over both the dark
- *   surfaces and the signal-orange CTA.
+ * - The field is painted with a lime-family ramp (deep forest → moss → signal
+ *   lime → chartreuse → white-hot) rather than the reference's literal infrared
+ *   purple→red→orange. The reference mid-tones are reds and oranges, which sit
+ *   opposite lime on the wheel and made the control look broken mid-hover. The
+ *   ramp stays monotonic in luminance, so it still reads as rising heat.
  * - Diffusion/injection constants and the half-resolution grid (RES = 2) are
  *   unchanged, so the heat behaves as it does in the source.
  * - The original ran an unconditional requestAnimationFrame loop per button,
@@ -22,14 +24,26 @@ import { useEffect, useRef } from "react";
  *   renders as a normal button, so nothing looks broken.
  */
 
-/** [stop, r, g, b, a] — infrared. */
+/**
+ * [stop, r, g, b, a] — the ramp the heat field is painted with.
+ *
+ * The reference used a literal infrared ramp (purple → red → orange → white).
+ * With the accent moved to lime, that ramp fights the brand: the mid-tones are
+ * saturated reds and oranges, which sit directly opposite lime on the wheel and
+ * make the control look broken mid-hover.
+ *
+ * This ramp keeps the same perceptual job — cool/low-energy to hot/white-hot,
+ * monotonic in luminance so the field still reads as rising heat — but travels
+ * through the lime family instead: deep forest → moss → signal lime → chartreuse
+ * → white-hot. The core animation is untouched; only the colourway changed.
+ */
 const STOPS: Array<readonly [number, number, number, number, number]> = [
-  [0.0, 10, 2, 25, 0],
-  [0.18, 60, 8, 90, 90],
-  [0.4, 190, 30, 45, 170],
-  [0.62, 255, 110, 20, 220],
-  [0.82, 255, 205, 60, 245],
-  [1.0, 255, 255, 235, 255],
+  [0.0, 6, 20, 10, 0],
+  [0.18, 22, 58, 26, 70],
+  [0.4, 74, 132, 34, 150],
+  [0.62, 150, 205, 46, 210],
+  [0.82, 198, 239, 52, 240],
+  [1.0, 250, 255, 224, 255],
 ];
 
 /** Simulate at half resolution — the field is low-frequency, so this is free. */

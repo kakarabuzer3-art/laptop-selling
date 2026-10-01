@@ -71,7 +71,7 @@ export const product: Product = {
     ],
     scrollCueLabel: "Scroll",
     media: {
-      alt: "NORDVÄRK N1 laptop in graphite aluminium, open at a three-quarter angle on a dark studio background, screen showing a single thin orange line",
+      alt: "NORDVÄRK N1 laptop in graphite aluminium, open at a three-quarter angle on a dark studio background, screen showing a single thin lime line",
       caption: "N1 · Graphite · Anodised 6000-series aluminium",
     },
   },

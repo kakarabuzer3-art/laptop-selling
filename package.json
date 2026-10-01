@@ -8,11 +8,12 @@
     "build": "next build --webpack",
     "start": "node scripts/serve-static.mjs 3000",
     "check:links": "node scripts/check-links.mjs",
+    "check:contrast": "node scripts/check-contrast.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run check:links",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run check:links && npm run check:contrast",
     "images:optimize": "node scripts/optimize-images.mjs",
     "build:turbo": "next build"
   },
